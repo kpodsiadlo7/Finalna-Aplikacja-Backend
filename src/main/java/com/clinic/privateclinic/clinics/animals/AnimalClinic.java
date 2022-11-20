@@ -3,9 +3,6 @@ package com.clinic.privateclinic.clinics.animals;
 import com.clinic.privateclinic.clinics.animals.pet.Pet;
 import com.clinic.privateclinic.clinics.base.Clinic;
 import com.clinic.privateclinic.person.Person;
-import com.clinic.privateclinic.staff.Staff;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,7 +18,9 @@ public final class AnimalClinic extends Clinic {
     public AnimalClinic(){
         if (SINGLETON != null)
             throw new IllegalStateException("Singleton already constructed");
+
     }
+
     @OneToMany
     List<Person> staff = new ArrayList<>();
 
