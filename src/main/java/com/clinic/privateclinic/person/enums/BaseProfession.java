@@ -1,8 +1,9 @@
 package com.clinic.privateclinic.person.enums;
 
-public enum Profession {
+public enum BaseProfession {
     VET,
     SURGEON,
     NURSE,
-    SECRETARY
+    SECRETARY,
+    DOCTOR
 }

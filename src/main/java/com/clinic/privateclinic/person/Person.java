@@ -1,13 +1,12 @@
 package com.clinic.privateclinic.person;
 
 import com.clinic.privateclinic.clinics.base.Clinic;
-import com.clinic.privateclinic.clinics.Grade;
+import com.clinic.privateclinic.clinics.grade.Grade;
 import com.clinic.privateclinic.person.enums.Sex;
 import com.clinic.privateclinic.person.enums.Vocation;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,29 +15,13 @@ import java.util.List;
 public class Person {
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String surname;
     private Sex sex;
     private Vocation vocation;
     private int age;
-    private double grade;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "StaffGrades",
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID"),
-            joinColumns = @JoinColumn(name = "GRADE_ID")
-    )
-    private List<Grade> grades = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "AllStaff",
-            joinColumns = @JoinColumn(name = "PERSON_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CLINIC_ID")
-    )
-    private List<Clinic> clinics = new ArrayList<>();
 
     protected Person() {
     }
@@ -95,27 +78,4 @@ public class Person {
         this.age = age;
     }
 
-    double getGrade() {
-        return grade;
-    }
-
-    void setGrade(final double grade) {
-        this.grade = grade;
-    }
-
-    List<Grade> getGrades() {
-        return grades;
-    }
-
-    void setGrades(final List<Grade> grades) {
-        this.grades = grades;
-    }
-
-    List<Clinic> getClinics() {
-        return clinics;
-    }
-
-    void setClinics(final List<Clinic> clinics) {
-        this.clinics = clinics;
-    }
 }

@@ -1,14 +1,14 @@
 package com.clinic.privateclinic.clinics.base;
 
-import com.clinic.privateclinic.clinics.Grade;
-import com.clinic.privateclinic.person.Person;
+import com.clinic.privateclinic.clinics.grade.Grade;
+import com.clinic.privateclinic.patient.Patient;
+import com.clinic.privateclinic.person.staff.Staff;
 import com.sun.istack.NotNull;
-import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "CLINICS")
@@ -16,28 +16,38 @@ import java.util.List;
 public class Clinic {
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int staffQty = 0;
     private int hospitalizedQty = 0;
-    private double grade = 0;
+    private double grade;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "ClinicGrades",
-            inverseJoinColumns = @JoinColumn(name = "GRADE_ID"),
-            joinColumns = @JoinColumn(name = "CLINIC_ID")
+            joinColumns = @JoinColumn(name = "CLINIC_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GRADE_ID")
     )
-    private List<Grade> grades = new ArrayList<>();
+    private List<Grade> gradesList;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "AllStaff",
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID"),
-            joinColumns = @JoinColumn(name = "CLINIC_ID")
+            joinColumns = @JoinColumn(name = "CLINIC_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PERSON_ID")
     )
-    private List<Person> staff = new ArrayList<>();
+    private List<Staff> staff;
 
-    protected Clinic(){
+    @ManyToMany
+    @JoinTable(
+            name = "AllPatient",
+            joinColumns = @JoinColumn(name = "CLINIC_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PATIENT_ID")
+    )
+    private List<Patient> patients;
+
+    public Clinic(){
+        gradesList = new ArrayList<>();
     }
 
     public long getId() {
@@ -64,23 +74,31 @@ public class Clinic {
         return grade;
     }
 
-    public void setGrade(final double grade) {
+    private void setGrade(final double grade) {
         this.grade = grade;
     }
 
     public List<Grade> getGrades() {
-        return grades;
+        return gradesList;
     }
 
-    public void setGrades(final List<Grade> grades) {
-        this.grades = grades;
+    public void setGrades(final Grade grade) {
+        this.gradesList.add(grade);
+        setGrade(avgGrade());
     }
 
-    public List<Person> getStaff() {
+
+    double avgGrade(){
+        List<Double> doubleList = getGrades().stream().map(Grade::getGrade).collect(Collectors.toList());
+        return doubleList.stream().mapToDouble(d -> d).average().orElse(0.0);
+    }
+
+    List<Staff> getStaff() {
         return staff;
     }
 
-    public void setStaff(final List<Person> staff) {
-        this.staff = staff;
+    public void setStaff(final Staff staffs) {
+        this.staff.add(staffs);
+        staffQty++;
     }
 }
