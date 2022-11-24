@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 @Table(name = "CLINICS")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PrivateClinic {
@@ -54,16 +54,13 @@ public class PrivateClinic {
         this.hospitalizedQuantity = 0;
     }
 
+
     public double getGrade() {
         return grade;
     }
 
     private void setGrade(final double grade) {
         this.grade = grade;
-    }
-
-    public List<Grade> getGrades() {
-        return gradesList;
     }
 
     public void setGrades(final Grade grade) {
@@ -73,7 +70,7 @@ public class PrivateClinic {
 
 
     double avgGrade(){
-        List<Double> doubleList = getGrades().stream().map(Grade::getGrade).collect(Collectors.toList());
+        List<Double> doubleList = getGradesList().stream().map(Grade::getGrade).collect(Collectors.toList());
         return doubleList.stream().mapToDouble(d -> d).average().orElse(0.0);
     }
 

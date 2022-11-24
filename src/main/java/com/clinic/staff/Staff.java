@@ -21,7 +21,8 @@ public class Staff extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    protected BaseProfession baseProfession;
+    private BaseProfession baseProfession;
+    private int quantityPatientToHelp;
     private double grade;
     private int patientQuantity;
     protected Staff(){
@@ -32,6 +33,7 @@ public class Staff extends Person {
         this.patientList = new ArrayList<>();
         this.patientQuantity = 0;
         this.grade = 0;
+        this.quantityPatientToHelp = 4;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -60,7 +62,11 @@ public class Staff extends Person {
     }
 
     public void addPatient(final Patient patient) {
-        this.patientList.add(patient);
-        patientQuantity++;
+        if (quantityPatientToHelp > 0) {
+            this.patientList.add(patient);
+            patientQuantity++;
+            quantityPatientToHelp--;
+        } else
+            throw new IllegalStateException("This " + this.getBaseProfession() +" can't help more people!\nTry to register for different time.");
     }
 }

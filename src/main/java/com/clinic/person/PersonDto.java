@@ -14,12 +14,4 @@ public class PersonDto {
     private Sex sex;
     private Vocation vocation;
     private int age;
-
-    void setVocation(final Vocation vocation) {
-        this.vocation = vocation;
-    }
-
-    void setSex(final Sex sex) {
-        this.sex = sex;
-    }
 }

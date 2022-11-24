@@ -3,12 +3,14 @@ package com.clinic.grade;
 import com.clinic.person.Person;
 import com.clinic.staff.Staff;
 import com.sun.istack.NotNull;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Table(name = "GRADES")
 public class Grade {
     @Id
@@ -25,7 +27,7 @@ public class Grade {
         this.grade = grade;
     }
 
-    public Grade() {
+    protected Grade() {
     }
 
     public String getNickname() {
