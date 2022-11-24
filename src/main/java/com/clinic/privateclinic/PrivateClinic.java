@@ -3,6 +3,9 @@ package com.clinic.privateclinic;
 import com.clinic.grade.Grade;
 import com.clinic.staff.Staff;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@AllArgsConstructor
+@Getter
 @Table(name = "CLINICS")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PrivateClinic {
@@ -18,9 +23,12 @@ public class PrivateClinic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String clinicName;
-    private int staffQty = 0;
-    private int hospitalizedQty = 0;
+    private int staffQuantity;
+    private int hospitalizedQuantity;
     private double grade;
+
+    protected PrivateClinic(){
+    }
 
     @ManyToMany
     @JoinTable(
@@ -34,32 +42,16 @@ public class PrivateClinic {
     @JoinTable(
             name = "AllStaff",
             joinColumns = @JoinColumn(name = "CLINIC_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID")
+            inverseJoinColumns = @JoinColumn(name = "STAFF_ID")
     )
     private List<Staff> staff;
 
-    public PrivateClinic(){
-        gradesList = new ArrayList<>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public int getStaffQty() {
-        return staffQty;
-    }
-
-    public void setStaffQty(final int staffQty) {
-        this.staffQty = staffQty;
-    }
-
-    public int getHospitalizedQty() {
-        return hospitalizedQty;
-    }
-
-    public void setHospitalizedQty(final int hospitalizedQty) {
-        this.hospitalizedQty = hospitalizedQty;
+    public PrivateClinic(String clinicName){
+        this.clinicName = clinicName;
+        this.gradesList = new ArrayList<>();
+        this.staff = new ArrayList<>();
+        this.staffQuantity = 0;
+        this.hospitalizedQuantity = 0;
     }
 
     public double getGrade() {
@@ -85,12 +77,9 @@ public class PrivateClinic {
         return doubleList.stream().mapToDouble(d -> d).average().orElse(0.0);
     }
 
-    List<Staff> getStaff() {
-        return staff;
-    }
-
-    public void setStaff(final Staff staffs) {
-        this.staff.add(staffs);
-        staffQty++;
+    public void addStaff(final Staff staffPerson) {
+        this.staff.add(staffPerson);
+        staffQuantity++;
+        this.hospitalizedQuantity += staffPerson.getPatientList().size();
     }
 }

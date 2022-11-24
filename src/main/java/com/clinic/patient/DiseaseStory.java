@@ -21,10 +21,10 @@ public class DiseaseStory {
     @Id
     private long id;
     private String description;
-    private LocalDate createdHistory;
+    private LocalDate reservationDate;
 
-    public DiseaseStory(final String description) {
+    public DiseaseStory(final String description, final LocalDate date) {
         this.description = description;
-        this.createdHistory = LocalDate.now();
+        this.reservationDate = date;
     }
 }
