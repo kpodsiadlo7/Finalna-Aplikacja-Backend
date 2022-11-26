@@ -1,11 +1,14 @@
 package com.clinic.privateclinic;
 
 import com.clinic.grade.Grade;
+import com.clinic.patient.Patient;
 import com.clinic.staff.Staff;
+import com.clinic.staff.StaffDto;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @Table(name = "CLINICS")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -30,7 +34,7 @@ public class PrivateClinic {
     protected PrivateClinic(){
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "ClinicGrades",
             joinColumns = @JoinColumn(name = "CLINIC_ID"),
@@ -38,18 +42,27 @@ public class PrivateClinic {
     )
     private List<Grade> gradesList;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "AllStaff",
             joinColumns = @JoinColumn(name = "CLINIC_ID"),
             inverseJoinColumns = @JoinColumn(name = "STAFF_ID")
     )
-    private List<Staff> staff;
+    private List<Staff> staffList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "AllPatients",
+            joinColumns = @JoinColumn(name = "CLINIC_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PATIENT_ID")
+    )
+    private List<Patient> patientList;
 
     public PrivateClinic(String clinicName){
         this.clinicName = clinicName;
         this.gradesList = new ArrayList<>();
-        this.staff = new ArrayList<>();
+        this.staffList = new ArrayList<>();
+        this.patientList = new ArrayList<>();
         this.staffQuantity = 0;
         this.hospitalizedQuantity = 0;
     }
@@ -59,15 +72,14 @@ public class PrivateClinic {
         return grade;
     }
 
-    private void setGrade(final double grade) {
+    private void setAverageGrade(final double grade) {
         this.grade = grade;
     }
 
     public void setGrades(final Grade grade) {
         this.gradesList.add(grade);
-        setGrade(avgGrade());
+        setAverageGrade(avgGrade());
     }
-
 
     double avgGrade(){
         List<Double> doubleList = getGradesList().stream().map(Grade::getGrade).collect(Collectors.toList());
@@ -75,8 +87,11 @@ public class PrivateClinic {
     }
 
     public void addStaff(final Staff staffPerson) {
-        this.staff.add(staffPerson);
+        this.staffList.add(staffPerson);
         staffQuantity++;
-        this.hospitalizedQuantity += staffPerson.getPatientList().size();
+    }
+    public void registerPatient(final Patient patient){
+        this.patientList.add(patient);
+        hospitalizedQuantity++;
     }
 }

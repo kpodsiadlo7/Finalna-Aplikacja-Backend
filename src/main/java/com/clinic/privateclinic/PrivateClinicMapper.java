@@ -22,7 +22,7 @@ public class PrivateClinicMapper {
                 privateClinic.getHospitalizedQuantity(),
                 privateClinic.getGrade(),
                 privateClinic.getGradesList().stream().map(Grade::getId).collect(Collectors.toList()),
-                privateClinic.getStaff().stream().map(Staff::getId).collect(Collectors.toList())
+                privateClinic.getStaffList().stream().map(Staff::getId).collect(Collectors.toList())
         );
     }
     public List<PrivateClinicDto> mapToPrivateClinicDtoList(final List<PrivateClinic> privateClinicList){

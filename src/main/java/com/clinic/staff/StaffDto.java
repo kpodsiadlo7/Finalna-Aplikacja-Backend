@@ -1,14 +1,18 @@
 package com.clinic.staff;
 
+import com.clinic.grade.Grade;
+import com.clinic.patient.Patient;
 import com.clinic.person.enums.BaseProfession;
 import com.clinic.person.enums.Sex;
 import com.clinic.person.enums.Vocation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class StaffDto {
     private long id;
@@ -21,6 +25,6 @@ public class StaffDto {
     private int quantityPatientToHelp;
     private double grade;
     private int patientQuantity;
-    private List<Long> gradeIdList;
-    private List<Long> patientIdList;
+    private List<Grade> gradeIdList;
+    private List<Patient> patientIdList;
 }

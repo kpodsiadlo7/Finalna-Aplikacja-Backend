@@ -30,6 +30,13 @@ public class Grade {
     protected Grade() {
     }
 
+    Grade(final long id, final String nickname, final String description, final double grade) {
+        this.id = id;
+        this.nickname = nickname;
+        this.description = description;
+        this.grade = grade;
+    }
+
     public String getNickname() {
         return nickname;
     }

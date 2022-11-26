@@ -9,12 +9,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class PatientMapper {
-    public Patient mapToPatient(final PatientDto patientDto){
+    public Patient mapToPatient(final PatientDto patientDto, final String reasonComingToClinic){
         return new Patient(
                 patientDto.getName(),
                 patientDto.getSurname(),
                 patientDto.getSex(),
-                patientDto.getAge()
+                patientDto.getAge(),
+                reasonComingToClinic
+        );
+    }
+
+    public Patient updatePatient(final PatientDto patientDto){
+        return new Patient(
+                patientDto.getName(),
+                patientDto.getSurname(),
+                patientDto.getSex(),
+                patientDto.getAge(),
+                patientDto.getId(),
+                patientDto.getReasonComingToClinic()
         );
     }
     public PatientDto mapToPatientDto(final Patient patient){
@@ -26,7 +38,8 @@ public class PatientMapper {
                 patient.getVocation(),
                 patient.getAge(),
                 patient.getDiseaseStory().stream().map(DiseaseStory::getId).collect(Collectors.toList()),
-                patient.getReservations().stream().map(Reservation::getId).collect(Collectors.toList())
+                patient.getReservations().stream().map(Reservation::getId).collect(Collectors.toList()),
+                patient.getReasonComingToClinic()
         );
     }
     public List<PatientDto> mapToPatientDtoList(final List<Patient> patientList){

@@ -4,5 +4,6 @@ public enum BaseProfession {
     SURGEON,
     NURSE,
     SECRETARY,
-    DOCTOR
+    DOCTOR,
+    DEFAULT
 }

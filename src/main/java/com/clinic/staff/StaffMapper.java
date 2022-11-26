@@ -1,7 +1,5 @@
 package com.clinic.staff;
 
-import com.clinic.grade.Grade;
-import com.clinic.patient.Patient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +28,8 @@ public class StaffMapper {
                 staff.getQuantityPatientToHelp(),
                 staff.getGrade(),
                 staff.getPatientQuantity(),
-                staff.getGradesList().stream().map(Grade::getId).collect(Collectors.toList()),
-                staff.getPatientList().stream().map(Patient::getId).collect(Collectors.toList())
+                staff.getGradesList(),
+                staff.getPatientList()
         );
     }
     public List<StaffDto> mapToStaffDtoList(final List<Staff> staffList){

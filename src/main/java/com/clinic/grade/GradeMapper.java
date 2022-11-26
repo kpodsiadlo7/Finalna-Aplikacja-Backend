@@ -15,6 +15,15 @@ public class GradeMapper {
         );
     }
 
+    public Grade updateGrade(final GradeDto gradeDto){
+        return new Grade(
+                gradeDto.getId(),
+                gradeDto.getNickname(),
+                gradeDto.getDescription(),
+                gradeDto.getGrade()
+        );
+    }
+
     public GradeDto mapToGradeDto(final Grade grade){
         return new GradeDto(
                 grade.getId(),

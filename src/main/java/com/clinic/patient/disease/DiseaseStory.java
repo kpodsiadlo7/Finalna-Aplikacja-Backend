@@ -19,6 +19,11 @@ public class DiseaseStory {
         this.description = description;
     }
 
+    public DiseaseStory(final long id, final String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return description;

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "STAFF")
 @Setter
 @Getter
 public class Staff extends Person {
@@ -27,8 +28,8 @@ public class Staff extends Person {
     private int patientQuantity;
     protected Staff(){
     }
-    public Staff(final String name, final String surname, final Sex sex, final int age, final BaseProfession baseProfession) {
-        super(name, surname, sex, Vocation.STAFF, age);
+    public Staff(final String name, final String surname,Sex sex, final int age, final BaseProfession baseProfession) {
+        super(name, surname,sex, Vocation.STAFF, age);
         this.baseProfession = baseProfession;
         this.patientList = new ArrayList<>();
         this.patientQuantity = 0;
@@ -39,7 +40,7 @@ public class Staff extends Person {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "StaffGrades",
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID"),
+            inverseJoinColumns = @JoinColumn(name = "STAFF_ID"),
             joinColumns = @JoinColumn(name = "GRADE_ID")
     )
     private List<Grade> gradesList;
@@ -52,7 +53,7 @@ public class Staff extends Person {
     )
     private List<Patient> patientList;
 
-    public void setAverageGrade(final Grade grade) {
+    public void addGradeAndCalculateAverageGrade(final Grade grade) {
         this.gradesList.add(grade);
         setGrade(avgGrade());
     }
