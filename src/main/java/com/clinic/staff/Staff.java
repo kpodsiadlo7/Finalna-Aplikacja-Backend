@@ -13,11 +13,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-@Entity
-@Table(name = "STAFF")
 @Setter
 @Getter
+@Entity
+@Table(name = "STAFF")
 public class Staff extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

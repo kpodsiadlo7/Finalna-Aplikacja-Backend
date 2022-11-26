@@ -67,18 +67,9 @@ public class PrivateClinic {
         this.hospitalizedQuantity = 0;
     }
 
-
-    public double getGrade() {
-        return grade;
-    }
-
-    private void setAverageGrade(final double grade) {
-        this.grade = grade;
-    }
-
     public void setGrades(final Grade grade) {
         this.gradesList.add(grade);
-        setAverageGrade(avgGrade());
+        this.grade = avgGrade();
     }
 
     double avgGrade(){

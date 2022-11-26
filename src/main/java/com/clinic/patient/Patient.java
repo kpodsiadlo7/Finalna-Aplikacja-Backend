@@ -11,10 +11,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-@Entity
 @Getter
 @Setter
+@Entity
+@Table(name = "PATIENTS")
 public class Patient extends Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
