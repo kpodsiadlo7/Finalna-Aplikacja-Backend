@@ -43,15 +43,18 @@ public class PatientController {
     public ResponseEntity<List<DiseaseStoryDto>> getAllDiseasesStory(){
         return ResponseEntity.ok(patientService.getAllDiseasesStory());
     }
+    @Transactional
     @PostMapping
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @RequestParam int sex, @RequestParam String reasonComingToClinic){
         return ResponseEntity.ok(patientService.createNewPatient(patientDto,sex,reasonComingToClinic));
     }
 
+    @Transactional
     @PutMapping
     public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto) throws PatientNotFoundException {
         return ResponseEntity.ok(patientService.updatePatient(patientDto));
     }
+    @Transactional
     @PutMapping("/disease/{patientId}")
     public ResponseEntity<DiseaseStoryDto> updateDiseaseStoryByPatientId(@RequestBody DiseaseStoryDto diseaseStoryDto, @PathVariable long patientId)
             throws PatientNotFoundException, DiseaseStoryNotFoundException {

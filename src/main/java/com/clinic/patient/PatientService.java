@@ -8,8 +8,11 @@ import com.clinic.person.enums.Sex;
 import com.clinic.privateclinic.PrivateClinicDto;
 import com.clinic.privateclinic.PrivateClinicNotFoundException;
 import com.clinic.privateclinic.PrivateClinicService;
+import com.clinic.reservation.Reservation;
+import com.clinic.reservation.enums.Currency;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,16 +39,24 @@ public class PatientService {
         return patientMapper.mapToPatientDto(patientRepository.findById(patientId));
     }
 
+    public PatientDto createNewPatient(PatientDto patientDto, int sex, String reasonComingToClinic){
+        return patientMapper.mapToPatientDto(createPatient(patientDto,sex,reasonComingToClinic,new Reservation()));
+    }
 
-    public PatientDto createNewPatient(final PatientDto patientDto, int sex, String reasonComingToClinic) {
-        if (sex >= 0 && sex <= 1){
-            patientDto.setSex(Sex.MALE);
-            if (sex == 1)
+    public Patient createPatient(final PatientDto patientDto, int sex, String reasonComingToClinic, Reservation reservation) {
+        switch (sex){
+            case 0:
+                patientDto.setSex(Sex.MALE);
+                break;
+            case 1:
                 patientDto.setSex(Sex.FEMALE);
+                break;
+            default:
+                throw new IllegalStateException("0-MALE,1-FEMALE");
         }
         Patient patient = patientMapper.mapToPatient(patientDto, reasonComingToClinic);
-        patientRepository.save(patient);
-        return patientMapper.mapToPatientDto(patient);
+        patient.setReservations(reservation);
+        return patientRepository.save(patient);
     }
 
     public PatientDto updatePatient(final PatientDto patientDto) throws PatientNotFoundException {
@@ -91,11 +102,18 @@ public class PatientService {
         return diseaseStoryService.getDiseaseStoryDto(diseaseStory);
     }
 
+
     public boolean patientExist(final long patientId) {
         return patientRepository.existsById(patientId);
     }
 
     public Patient getPatientById(final long patientId) {
         return patientRepository.findById(patientId);
+    }
+
+    public List<Reservation> getReservationByPatientId(final long patientId) throws PatientNotFoundException {
+        if (!patientRepository.existsById(patientId))
+            throw new PatientNotFoundException();
+        return patientRepository.findById(patientId).getReservations();
     }
 }

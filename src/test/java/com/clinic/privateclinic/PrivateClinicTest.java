@@ -31,7 +31,7 @@ class PrivateClinicTest {
     @Test
     void shouldChangeAverageGradeClinic(){
         // given
-        PrivateClinic privateClinic = new PrivateClinic("Klinika u zbycha");
+        PrivateClinic privateClinic = new PrivateClinic("Klinika u zbycha","Gorzów","gorzowska");
         privateClinicRepository.save(privateClinic);
         // when
         Grade grade1 = new Grade("Eloszka","Spoko było", 5.0);
@@ -53,7 +53,7 @@ class PrivateClinicTest {
     @Test
     void shouldFillStaffList(){
         // given
-        PrivateClinic privateClinic = new PrivateClinic("Klinika u zbycha");
+        PrivateClinic privateClinic = new PrivateClinic("Klinika u zbycha","Gorzów", "hawelańska");
         privateClinicRepository.save(privateClinic);
         // and
         Staff doctor = new Staff("doktorek","surname",Sex.MALE,33, BaseProfession.DOCTOR);
@@ -70,7 +70,7 @@ class PrivateClinicTest {
         // when
         int staffQuantity = privateClinic.getStaffQuantity();
         int doctorQuantityInStaffListFromClinic = staffRepository.findByBaseProfession(BaseProfession.DOCTOR).size();
-        String shouldNurse = privateClinic.getStaff().stream()
+        String shouldNurse = privateClinic.getStaffList().stream()
                 .filter(staff -> staff.getBaseProfession().equals(BaseProfession.NURSE)).map(Person::getName).findAny().orElse("list not contains nurse with name nurse");
         // then
         assertEquals(3, staffQuantity);
@@ -86,14 +86,14 @@ class PrivateClinicTest {
     @DisplayName("ShouldUpdateHospitalizedQuantityInClinicAfterAddingStaffWithPatients")
     void shouldUpdateHospitalizedQuantity(){
         // given
-        PrivateClinic privateClinic = new PrivateClinic("Klinika nabyta");
+        PrivateClinic privateClinic = new PrivateClinic("Klinika nabyta","Poznań","poznańska");
         privateClinicRepository.save(privateClinic);
         // and
-        Patient patient1 = new Patient("patient","surname", Sex.MALE,23);
-        Patient patient2 = new Patient("patient2","surname",Sex.FEMALE, 33);
-        Patient patient3 = new Patient("patient3","surname",Sex.MALE,23);
-        Patient patient4 = new Patient("patient4","surname",Sex.FEMALE,33);
-        Patient patient5 = new Patient("patient5","surname",Sex.FEMALE,33);
+        Patient patient1 = new Patient("patient","surname", Sex.MALE,23,"brain damage");
+        Patient patient2 = new Patient("patient2","surname",Sex.FEMALE, 33,"brain damage");
+        Patient patient3 = new Patient("patient3","surname",Sex.MALE,23,"brain damage");
+        Patient patient4 = new Patient("patient4","surname",Sex.FEMALE,33,"brain damage");
+        Patient patient5 = new Patient("patient5","surname",Sex.FEMALE,33,"brain damage");
         patientRepository.save(patient1);
         patientRepository.save(patient2);
         patientRepository.save(patient3);

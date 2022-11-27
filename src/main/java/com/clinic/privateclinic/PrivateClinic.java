@@ -27,6 +27,8 @@ public class PrivateClinic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String clinicName;
+    private String city;
+    private String street;
     private int staffQuantity;
     private int hospitalizedQuantity;
     private double grade;
@@ -58,8 +60,10 @@ public class PrivateClinic {
     )
     private List<Patient> patientList;
 
-    public PrivateClinic(String clinicName){
+    public PrivateClinic(final String clinicName, final String city, final String street){
         this.clinicName = clinicName;
+        this.city = city;
+        this.street = street;
         this.gradesList = new ArrayList<>();
         this.staffList = new ArrayList<>();
         this.patientList = new ArrayList<>();
@@ -84,5 +88,14 @@ public class PrivateClinic {
     public void registerPatient(final Patient patient){
         this.patientList.add(patient);
         hospitalizedQuantity++;
+    }
+    public boolean removeStaff(Staff staffToRemove){
+        for (Staff s: staffList){
+            if (s == staffToRemove)
+                staffList.remove(staffToRemove);
+            else return false;
+        }
+        staffQuantity--;
+        return true;
     }
 }

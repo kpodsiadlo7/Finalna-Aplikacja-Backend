@@ -5,10 +5,13 @@ import com.clinic.patient.Patient;
 import com.clinic.patient.PatientRepository;
 import com.clinic.patient.disease.DiseaseStoryRepository;
 import com.clinic.person.enums.Sex;
+import com.clinic.reservation.enums.Currency;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,13 +29,13 @@ class ReservationTest {
     @DisplayName("CreateReservationAndAddToPatientWithDiseaseStory")
     void shouldCreateEmptyReservationWithDiseaseStory(){
         // given
-        Reservation reservation = new Reservation();
+        Reservation reservation = new Reservation(Currency.USD, LocalDateTime.now().plusDays(6));
         reservationRepository.save(reservation);
         // and
         DiseaseStory diseaseStory = new DiseaseStory("Połamana noga");
         diseaseStoryRepository.save(diseaseStory);
         // and
-        Patient patient1 = new Patient("patient","surname", Sex.MALE,23);
+        Patient patient1 = new Patient("patient","surname", Sex.MALE,23,"arm hurts");
         patientRepository.save(patient1);
         patient1.setReservations(reservation);
         patient1.setDiseasesStory(diseaseStory);

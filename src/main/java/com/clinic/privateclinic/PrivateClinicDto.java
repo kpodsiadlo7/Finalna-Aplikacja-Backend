@@ -11,6 +11,8 @@ import java.util.List;
 public class PrivateClinicDto {
     private long id;
     private String clinicName;
+    private String city;
+    private String street;
     private int staffQuantity;
     private int hospitalizedQuantity;
     private double grade;

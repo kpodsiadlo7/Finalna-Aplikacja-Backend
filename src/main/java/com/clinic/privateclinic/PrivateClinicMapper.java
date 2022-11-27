@@ -11,13 +11,17 @@ import java.util.stream.Collectors;
 public class PrivateClinicMapper {
     public PrivateClinic mapToPrivateClinic(final PrivateClinicDto privateClinicDto){
         return new PrivateClinic(
-                privateClinicDto.getClinicName()
+                privateClinicDto.getClinicName(),
+                privateClinicDto.getCity(),
+                privateClinicDto.getStreet()
         );
     }
     public PrivateClinicDto mapToPrivateClinicDto(final PrivateClinic privateClinic){
         return new PrivateClinicDto(
                 privateClinic.getId(),
                 privateClinic.getClinicName(),
+                privateClinic.getCity(),
+                privateClinic.getStreet(),
                 privateClinic.getStaffQuantity(),
                 privateClinic.getHospitalizedQuantity(),
                 privateClinic.getGrade(),

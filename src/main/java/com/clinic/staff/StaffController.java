@@ -26,6 +26,7 @@ public class StaffController {
             throws StaffNotFoundException {
         return ResponseEntity.ok(staffService.getStaffById(staffId));
     }
+    @Transactional
     @PostMapping
     public ResponseEntity<StaffDto> createNewStaff(@RequestBody StaffDto staffDto, @RequestParam int profession, @RequestParam int sex){
         return ResponseEntity.ok(staffService.createNewStaff(staffDto,profession,sex));
