@@ -49,14 +49,13 @@ public class PrivateClinicController {
     }
     @Transactional
     @PutMapping("/addstaff/{staffId}/{clinicId}")
-    public ResponseEntity<Void> addStaffToClinic(@PathVariable long staffId, @PathVariable long clinicId)
+    public ResponseEntity<PrivateClinicDto> addStaffToClinic(@PathVariable long staffId, @PathVariable long clinicId)
             throws PrivateClinicNotFoundException, StaffNotFoundException {
-        privateClinicService.addStaffToClinic(staffId,clinicId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(privateClinicService.addStaffToClinic(staffId,clinicId));
     }
     @Transactional
     @PatchMapping("/removestaff/{staffId}/{clinicId}")
-    public ResponseEntity<Boolean> removeStaffFromClinic(@PathVariable long staffId, @PathVariable long clinicId)
+    public ResponseEntity<PrivateClinicDto> removeStaffFromClinic(@PathVariable long staffId, @PathVariable long clinicId)
             throws StaffNotFoundException, PrivateClinicNotFoundException {
         return ResponseEntity.ok(privateClinicService.removeStaffFromClinic(staffId,clinicId));
     }

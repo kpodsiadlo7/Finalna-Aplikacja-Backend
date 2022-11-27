@@ -1,9 +1,12 @@
 package com.clinic.staff;
 
+import com.clinic.grade.GradeDto;
 import com.clinic.grade.GradeService;
+import com.clinic.patient.Patient;
 import com.clinic.patient.PatientNotFoundException;
 import com.clinic.patient.PatientService;
 import com.clinic.patient.disease.DiseaseStoryDto;
+import com.clinic.patient.disease.DiseaseStoryService;
 import com.clinic.person.enums.BaseProfession;
 import com.clinic.person.enums.Sex;
 import org.springframework.stereotype.Service;
@@ -16,12 +19,14 @@ public class StaffService {
     private final StaffMapper staffMapper;
     private final PatientService patientService;
     private final GradeService gradeService;
+    private final DiseaseStoryService diseaseStoryService;
 
-    StaffService(final StaffRepository staffRepository, final StaffMapper staffMapper, final PatientService patientService, final GradeService gradeService) {
+    StaffService(final StaffRepository staffRepository, final StaffMapper staffMapper, final PatientService patientService, final GradeService gradeService, final DiseaseStoryService diseaseStoryService) {
         this.staffRepository = staffRepository;
         this.staffMapper = staffMapper;
         this.patientService = patientService;
         this.gradeService = gradeService;
+        this.diseaseStoryService = diseaseStoryService;
     }
 
     public DiseaseStoryDto addDescriptionDiseaseToDiseaseStoryByPatientId(final DiseaseStoryDto diseaseStoryDto, final long patientId)
@@ -62,11 +67,25 @@ public class StaffService {
         return staffMapper.mapToStaffDto(staffRepository.save(staff));
     }
 
-    public StaffDto rateStaff(final double rate, final String desc, final long staffId, String patientName) throws StaffNotFoundException {
+    public StaffDto rateStaff(final GradeDto gradeDto, final long staffId, String patientName) throws StaffNotFoundException {
         if (!staffRepository.existsById(staffId))
             throw new StaffNotFoundException();
         Staff staff = staffRepository.findById(staffId);
-        staff.addGradeAndCalculateAverageGrade(gradeService.newRate(desc,rate,patientName));
+        gradeDto.setNickname(patientName);
+        staff.addGradeAndCalculateAverageGrade(gradeService.patientRate(gradeDto));
+        return staffMapper.mapToStaffDto(staffRepository.save(staff));
+    }
+    public List<DiseaseStoryDto> getAllDiseasesStory() {
+        return diseaseStoryService.getAllDiseasesStory();
+    }
+
+    public StaffDto addPatientToStaff(final long patientId, final long staffId) throws PatientNotFoundException, StaffNotFoundException {
+        if (!staffRepository.existsById(staffId))
+            throw new StaffNotFoundException();
+        if (!patientService.patientExist(patientId))
+            throw new PatientNotFoundException();
+        Staff staff = staffRepository.findById(staffId);
+        staff.addPatient(patientService.getPatientById(patientId));
         return staffMapper.mapToStaffDto(staffRepository.save(staff));
     }
 }

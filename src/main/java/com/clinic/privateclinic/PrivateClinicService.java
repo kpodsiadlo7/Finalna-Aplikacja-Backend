@@ -1,5 +1,6 @@
 package com.clinic.privateclinic;
 
+import com.clinic.grade.GradeDto;
 import com.clinic.grade.GradeService;
 import com.clinic.patient.PatientNotFoundException;
 import com.clinic.patient.PatientRepository;
@@ -56,11 +57,12 @@ public class PrivateClinicService {
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinicToUpdateName));
     }
 
-    public PrivateClinicDto rateClinic(final String desc, double rate, long clinicId, String patientName) throws PrivateClinicNotFoundException {
+    public PrivateClinicDto rateClinic(final GradeDto gradeDto, long clinicId, String patientName) throws PrivateClinicNotFoundException {
         if (!privateClinicRepository.existsById(clinicId))
             throw new PrivateClinicNotFoundException();
         PrivateClinic privateClinic = privateClinicRepository.findById(clinicId);
-        privateClinic.setGrades(gradeService.newRate(desc,rate,patientName));
+        gradeDto.setNickname(patientName);
+        privateClinic.setGrades(gradeService.patientRate(gradeDto));
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
 
@@ -74,7 +76,7 @@ public class PrivateClinicService {
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
 
-    public void addStaffToClinic(final long staffId, final long clinicId) throws PrivateClinicNotFoundException, StaffNotFoundException {
+    public PrivateClinicDto addStaffToClinic(final long staffId, final long clinicId) throws PrivateClinicNotFoundException, StaffNotFoundException {
         if (!privateClinicRepository.existsById(clinicId))
             throw new PrivateClinicNotFoundException();
         if (!staffRepository.existsById(staffId))
@@ -82,10 +84,10 @@ public class PrivateClinicService {
         PrivateClinic privateClinic = privateClinicRepository.findById(clinicId);
         Staff staff = staffRepository.findById(staffId);
         privateClinic.addStaff(staff);
-        privateClinicRepository.save(privateClinic);
+        return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
 
-    public boolean removeStaffFromClinic(final long staffId, final long clinicId) throws StaffNotFoundException, PrivateClinicNotFoundException {
+    public PrivateClinicDto removeStaffFromClinic(final long staffId, final long clinicId) throws StaffNotFoundException, PrivateClinicNotFoundException {
         if (!privateClinicRepository.existsById(clinicId))
             throw new PrivateClinicNotFoundException();
         if (!staffRepository.existsById(staffId))
@@ -96,7 +98,6 @@ public class PrivateClinicService {
             throw new IllegalStateException("This " +staffToRemove.getBaseProfession() +" named "
                     + staffToRemove.getName()
                     +" is not working for this clinic!");
-        privateClinicRepository.save(privateClinic);
-        return true;
+        return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
 }

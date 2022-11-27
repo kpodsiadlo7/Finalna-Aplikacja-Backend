@@ -1,6 +1,8 @@
 package com.clinic.privateclinic;
 
+import com.clinic.grade.Grade;
 import com.clinic.grade.GradeDto;
+import com.clinic.staff.Staff;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,6 +18,6 @@ public class PrivateClinicDto {
     private int staffQuantity;
     private int hospitalizedQuantity;
     private double grade;
-    private List<Long> gradeIdList;
-    private List<Long> staffIdList;
+    private List<Grade> gradeList;
+    private List<Staff> staffList;
 }

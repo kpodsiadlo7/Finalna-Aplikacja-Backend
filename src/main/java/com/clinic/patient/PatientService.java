@@ -1,18 +1,16 @@
 package com.clinic.patient;
 
+import com.clinic.grade.GradeDto;
 import com.clinic.patient.disease.DiseaseStory;
 import com.clinic.patient.disease.DiseaseStoryDto;
-import com.clinic.patient.disease.DiseaseStoryNotFoundException;
 import com.clinic.patient.disease.DiseaseStoryService;
 import com.clinic.person.enums.Sex;
 import com.clinic.privateclinic.PrivateClinicDto;
 import com.clinic.privateclinic.PrivateClinicNotFoundException;
 import com.clinic.privateclinic.PrivateClinicService;
 import com.clinic.reservation.Reservation;
-import com.clinic.reservation.enums.Currency;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -62,8 +60,9 @@ public class PatientService {
     public PatientDto updatePatient(final PatientDto patientDto) throws PatientNotFoundException {
         if (!patientRepository.existsById(patientDto.getId()))
             throw new PatientNotFoundException();
-        Patient patient = patientMapper.updatePatient(patientDto);
-        return patientMapper.mapToPatientDto(patientRepository.save(patient));
+        if (patientRepository.findById(patientDto.getId()).getAge() > patientDto.getAge())
+            throw new IllegalArgumentException("Sorry bro, you can't be younger");
+        return changePatient(patientRepository.findById(patientDto.getId()),patientDto);
     }
 
     public List<DiseaseStoryDto> getDiseasesStoryByPatientId(final long patientId) throws PatientNotFoundException {
@@ -73,23 +72,12 @@ public class PatientService {
         return diseaseStoryService.getDiseaseStoryDtoList(patient.getDiseaseStory());
     }
 
-    public List<DiseaseStoryDto> getAllDiseasesStory() {
-        return diseaseStoryService.getAllDiseasesStory();
-    }
-
-    public DiseaseStoryDto updateDiseaseStoryByPatientId(final DiseaseStoryDto diseaseStoryDto, final long patientId)
-            throws PatientNotFoundException, DiseaseStoryNotFoundException {
-        if (!patientRepository.existsById(patientId))
-            throw new PatientNotFoundException();
-        return diseaseStoryService.updateDiseaseStoryByPatientId(diseaseStoryDto);
-    }
-
-    public PrivateClinicDto rateClinic(final String desc, double rate, final long clinicId, final long patientId)
+    public PrivateClinicDto rateClinic(final GradeDto gradeDto,final long clinicId, final long patientId)
             throws PrivateClinicNotFoundException, PatientNotFoundException {
         if (!patientRepository.existsById(patientId))
             throw new PatientNotFoundException();
         String patientName = patientRepository.findById(patientId).getName();
-        return privateClinicService.rateClinic(desc,rate,clinicId,patientName);
+        return privateClinicService.rateClinic(gradeDto,clinicId,patientName);
     }
 
     public DiseaseStoryDto addDescriptionDiseaseToDiseaseStory(final DiseaseStoryDto diseaseStoryDto, long patientId) throws PatientNotFoundException {
@@ -115,5 +103,12 @@ public class PatientService {
         if (!patientRepository.existsById(patientId))
             throw new PatientNotFoundException();
         return patientRepository.findById(patientId).getReservations();
+    }
+    private PatientDto changePatient(Patient patient, PatientDto patientDto){
+        Patient patientToUpdate = patientRepository.findById(patientDto.getId());
+        patientDto.setDiseaseStory(patientToUpdate.getDiseaseStory());
+        patientDto.setReservation(patient.getReservations());
+        patientDto.setSex(patientToUpdate.getSex());
+        return patientMapper.mapToPatientDto(patientRepository.save(patientMapper.mapToPatient(patientDto,patient.getReasonComingToClinic())));
     }
 }

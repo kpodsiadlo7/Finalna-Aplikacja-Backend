@@ -1,5 +1,6 @@
 package com.clinic.patient;
 
+import com.clinic.grade.GradeDto;
 import com.clinic.patient.disease.DiseaseStoryDto;
 import com.clinic.patient.disease.DiseaseStoryNotFoundException;
 import com.clinic.privateclinic.PrivateClinicDto;
@@ -39,10 +40,7 @@ public class PatientController {
             throws PatientNotFoundException {
         return ResponseEntity.ok(patientService.getDiseasesStoryByPatientId(patientId));
     }
-    @GetMapping("/diseases")
-    public ResponseEntity<List<DiseaseStoryDto>> getAllDiseasesStory(){
-        return ResponseEntity.ok(patientService.getAllDiseasesStory());
-    }
+
     @Transactional
     @PostMapping
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @RequestParam int sex, @RequestParam String reasonComingToClinic){
@@ -54,23 +52,18 @@ public class PatientController {
     public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto) throws PatientNotFoundException {
         return ResponseEntity.ok(patientService.updatePatient(patientDto));
     }
-    @Transactional
-    @PutMapping("/disease/{patientId}")
-    public ResponseEntity<DiseaseStoryDto> updateDiseaseStoryByPatientId(@RequestBody DiseaseStoryDto diseaseStoryDto, @PathVariable long patientId)
-            throws PatientNotFoundException, DiseaseStoryNotFoundException {
-        return ResponseEntity.ok(patientService.updateDiseaseStoryByPatientId(diseaseStoryDto,patientId));
-    }
+
     @Transactional
     @PutMapping("/rateclinic/{clinicId}/{patientId}")
-    public ResponseEntity<PrivateClinicDto> rateClinic(@RequestParam double rate, @RequestParam String desc, @PathVariable long clinicId, @PathVariable long patientId)
+    public ResponseEntity<PrivateClinicDto> rateClinic(@RequestBody GradeDto gradeDto, @PathVariable long clinicId, @PathVariable long patientId)
             throws PrivateClinicNotFoundException, PatientNotFoundException {
-        return ResponseEntity.ok(patientService.rateClinic(desc,rate,clinicId,patientId));
+        return ResponseEntity.ok(patientService.rateClinic(gradeDto,clinicId,patientId));
     }
     @Transactional
-    @PutMapping("ratestaff/{staffId}/{patientId}")
-    public ResponseEntity<StaffDto> rateStaff(@RequestParam double rate, @RequestParam String desc, @PathVariable long staffId, @PathVariable long patientId) throws PatientNotFoundException, StaffNotFoundException {
-        if (patientService.patientExist(patientId))
+    @PutMapping("/ratestaff/{staffId}/{patientId}")
+    public ResponseEntity<StaffDto> rateStaff(@RequestBody GradeDto gradeDto, @PathVariable long staffId, @PathVariable long patientId) throws PatientNotFoundException, StaffNotFoundException {
+        if (!patientService.patientExist(patientId))
             throw new PatientNotFoundException();
-        return ResponseEntity.ok(staffService.rateStaff(rate,desc,staffId,patientService.getPatientById(patientId).getName()));
+        return ResponseEntity.ok(staffService.rateStaff(gradeDto,staffId,patientService.getPatientById(patientId).getName()));
     }
 }

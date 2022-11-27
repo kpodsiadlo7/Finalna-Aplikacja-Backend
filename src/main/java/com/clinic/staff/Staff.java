@@ -31,6 +31,7 @@ public class Staff extends Person {
         super(name, surname,sex, Vocation.STAFF, age);
         this.baseProfession = baseProfession;
         this.patientList = new ArrayList<>();
+        this.gradesList = new ArrayList<>();
         this.patientQuantity = 0;
         this.grade = 0;
         this.quantityPatientToHelp = 4;

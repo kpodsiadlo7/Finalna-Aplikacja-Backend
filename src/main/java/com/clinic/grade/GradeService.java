@@ -25,20 +25,22 @@ public class GradeService {
     }
 
     public GradeDto createNewGrade(final GradeDto gradeDto) {
-        Grade grade = gradeMapper.mapToGrade(gradeDto);
-        gradeRepository.save(grade);
-        return gradeMapper.mapToGradeDto(gradeMapper.mapToGrade(gradeDto));
+        if (gradeDto.getGrade() > 10 && gradeDto.getGrade() < 1)
+            throw new IllegalStateException("Grade 1-10");
+        return gradeMapper.mapToGradeDto(gradeRepository.save(gradeMapper.mapToGrade(gradeDto)));
     }
 
     public GradeDto updateGrade(final GradeDto gradeDto) throws GradeNotFoundException {
         if (!gradeRepository.existsById(gradeDto.getId()))
             throw new GradeNotFoundException();
+        if (gradeDto.getGrade() > 10 && gradeDto.getGrade() < 1)
+            throw new IllegalStateException("Grade 1-10");
         return gradeMapper.mapToGradeDto(gradeMapper.updateGrade(gradeDto));
     }
-    public Grade newRate(final String desc, final double rate, String patientName){
-        GradeDto newGrade = new GradeDto(patientName,desc,rate);
-        createNewGrade(newGrade);
-        gradeRepository.save(gradeMapper.mapToGrade(newGrade));
-        return gradeMapper.mapToGrade(newGrade);
+
+    public Grade patientRate(final GradeDto gradeDto) {
+        if (gradeDto.getGrade() > 10 && gradeDto.getGrade() < 1)
+            throw new IllegalStateException("Grade 1-10");
+        return gradeRepository.save(gradeMapper.mapToGrade(gradeDto));
     }
 }

@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
@@ -17,26 +20,27 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private int daysToVisit;
+    private long daysToVisit;
     private Currency currencyPayment;
     private boolean afterVisit;
-    private LocalDateTime reservationDate;
+    private LocalDate reservationDate;
 
-    public Reservation(final Currency currencyPayment, final LocalDateTime reservationDate) {
+    public Reservation(final Currency currencyPayment, final LocalDate reservationDate) {
         this.currencyPayment = currencyPayment;
-        this.reservationDate = LocalDateTime.now().plusDays(LocalDateTime.now().getDayOfMonth()-reservationDate.getDayOfMonth());
+        this.reservationDate = reservationDate;
         this.afterVisit = false;
-        this.daysToVisit = reservationDate.getDayOfMonth() - LocalDateTime.now().getDayOfMonth();
+        this.daysToVisit = ChronoUnit.DAYS.between(LocalDate.now(),reservationDate);
     }
 
     public void closeReservation(){
         this.afterVisit = true;
     }
 
-    public boolean changeReservationDate(final LocalDateTime visitDate) {
-        if (visitDate.getDayOfMonth() < LocalDateTime.now().getDayOfMonth())
+    public boolean changeReservationDate(final LocalDate visitDate) {
+        if (visitDate.isBefore(LocalDate.now()))
             return false;
         this.reservationDate = visitDate;
+        this.daysToVisit = ChronoUnit.DAYS.between(LocalDate.now(),reservationDate);
         return true;
     }
     //SHOULDER POWINEN SPRAWDZAĆ co godzine KTÓRA REZERWACJA ZOSTAŁA PRZEDAWNIONA I ZMIENAĆ JEJ STATUS po 1 h od wizyty

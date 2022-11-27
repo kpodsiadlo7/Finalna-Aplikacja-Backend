@@ -1,5 +1,6 @@
 package com.clinic.patient.disease;
 
+import com.clinic.patient.Patient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

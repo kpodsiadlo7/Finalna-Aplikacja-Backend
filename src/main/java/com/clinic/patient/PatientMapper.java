@@ -37,8 +37,8 @@ public class PatientMapper {
                 patient.getSex(),
                 patient.getVocation(),
                 patient.getAge(),
-                patient.getDiseaseStory().stream().map(DiseaseStory::getId).collect(Collectors.toList()),
-                patient.getReservations().stream().map(Reservation::getId).collect(Collectors.toList()),
+                patient.getDiseaseStory(),
+                patient.getReservations(),
                 patient.getReasonComingToClinic()
         );
     }

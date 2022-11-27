@@ -90,10 +90,15 @@ public class PrivateClinic {
         hospitalizedQuantity++;
     }
     public boolean removeStaff(Staff staffToRemove){
+        if (staffList.isEmpty())
+            throw new IllegalStateException("No one working for this clinic");
         for (Staff s: staffList){
-            if (s == staffToRemove)
+            if (s == staffToRemove) {
                 staffList.remove(staffToRemove);
-            else return false;
+                break;
+            }
+            else
+                return false;
         }
         staffQuantity--;
         return true;

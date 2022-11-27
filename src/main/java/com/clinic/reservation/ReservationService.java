@@ -8,7 +8,7 @@ import com.clinic.privateclinic.PrivateClinicService;
 import com.clinic.reservation.enums.Currency;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,28 +36,11 @@ public class ReservationService {
         return reservationMapper.mapToReservationDtoList(reservationRepository.findByAfterVisitIsFalse());
     }
 
-    public ReservationDto createNewReservation(final long clinicId, final PatientDto patientDto, int sex, String reasonComingToClinic, int currency, LocalDateTime reservationDate)
+    public ReservationDto createNewReservation(final long clinicId, final PatientDto patientDto, int sex, String reasonComingToClinic, int currency, LocalDate reservationDate)
             throws PatientNotFoundException, PrivateClinicNotFoundException {
-        if (reservationDate.getDayOfMonth() < LocalDateTime.now().getDayOfMonth())
+        if (reservationDate.isBefore(LocalDate.now()))
             throw new IllegalArgumentException("Date should not be past");
-        Currency currencyPayment;
-        switch (currency) {
-            case 0:
-                currencyPayment = Currency.PLN;
-                break;
-            case 1:
-                currencyPayment = Currency.EUR;
-                break;
-            case 2:
-                currencyPayment = Currency.USD;
-                break;
-            case 3:
-                currencyPayment = Currency.CASH;
-                break;
-            default:
-                throw new IllegalArgumentException("0-PLN,1-EUR,2-USD,3-CASH");
-        }
-        Reservation reservation = new Reservation(currencyPayment,reservationDate);
+        Reservation reservation = new Reservation(changeCurrency(currency),reservationDate);
         reservationRepository.save(reservation);
         privateClinicService.registerNewPatient(clinicId,patientService.createPatient(patientDto,sex,reasonComingToClinic,reservation).getId());
         return reservationMapper.mapToReservationDto(reservation);
@@ -78,12 +61,40 @@ public class ReservationService {
         return reservationMapper.mapToReservationDtoList(patientService.getReservationByPatientId(patientId));
     }
 
-    public ReservationDto changeReservationDate(final long reservationId, final LocalDateTime visitDate) throws ReservationNotFoundException {
+    public ReservationDto changeReservationDate(final long reservationId, final LocalDate visitDate) throws ReservationNotFoundException {
         if (!reservationRepository.existsById(reservationId))
             throw new ReservationNotFoundException();
         Reservation reservation = reservationRepository.findById(reservationId);
         if (!reservation.changeReservationDate(visitDate))
             throw new IllegalArgumentException("Date should not be past");
         return reservationMapper.mapToReservationDto(reservationRepository.save(reservation));
+    }
+
+    public ReservationDto changeCurrency(final long reservationId, final int newCurrency) throws ReservationNotFoundException {
+        if (!reservationRepository.existsById(reservationId))
+            throw new ReservationNotFoundException();
+        Reservation reservation = reservationRepository.findById(reservationId);
+        reservation.setCurrencyPayment(changeCurrency(newCurrency));
+        return reservationMapper.mapToReservationDto(reservationRepository.save(reservation));
+    }
+    private Currency changeCurrency(int currency){
+        Currency currencyPayment;
+        switch (currency) {
+            case 0:
+                currencyPayment = Currency.PLN;
+                break;
+            case 1:
+                currencyPayment = Currency.EUR;
+                break;
+            case 2:
+                currencyPayment = Currency.USD;
+                break;
+            case 3:
+                currencyPayment = Currency.CASH;
+                break;
+            default:
+                throw new IllegalArgumentException("0-PLN,1-EUR,2-USD,3-CASH");
+        }
+        return currencyPayment;
     }
 }

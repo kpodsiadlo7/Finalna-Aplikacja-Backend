@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +30,7 @@ class ReservationTest {
     @DisplayName("CreateReservationAndAddToPatientWithDiseaseStory")
     void shouldCreateEmptyReservationWithDiseaseStory(){
         // given
-        Reservation reservation = new Reservation(Currency.USD, LocalDateTime.now().plusDays(6));
+        Reservation reservation = new Reservation(Currency.USD, LocalDate.now().plusDays(6));
         reservationRepository.save(reservation);
         // and
         DiseaseStory diseaseStory = new DiseaseStory("Połamana noga");

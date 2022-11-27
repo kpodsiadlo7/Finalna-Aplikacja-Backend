@@ -1,7 +1,9 @@
 package com.clinic.patient;
 
+import com.clinic.patient.disease.DiseaseStory;
 import com.clinic.person.enums.Sex;
 import com.clinic.person.enums.Vocation;
+import com.clinic.reservation.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +20,7 @@ public class PatientDto {
     private Sex sex;
     private Vocation vocation;
     private int age;
-    private List<Long> diseaseStoryId;
-    private List<Long> reservationId;
+    private List<DiseaseStory> diseaseStory;
+    private List<Reservation> reservation;
     private String reasonComingToClinic;
 }

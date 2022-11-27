@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,7 +33,7 @@ public class ReservationController {
     public ResponseEntity<List<ReservationDto>> getAllOpenReservation(){
         return ResponseEntity.ok(reservationService.getAllOpenReservation());
     }
-    @GetMapping("{patientId}")
+    @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<ReservationDto>> getAllReservationsByPatientId(@PathVariable long patientId) throws PatientNotFoundException {
         return ResponseEntity.ok(reservationService.getAllReservationsByPatientId(patientId));
     }
@@ -41,7 +41,7 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<ReservationDto> createNewReservation(@RequestParam long clinicId, @RequestBody PatientDto patientDto,
                                                                @RequestParam int sex, @RequestParam String reasonComingToClinic,
-                                                               @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDateTime visitDate,
+                                                               @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate visitDate,
                                                                int currency)
             throws PatientNotFoundException, PrivateClinicNotFoundException {
         return ResponseEntity.ok(reservationService.createNewReservation(clinicId,patientDto,sex,reasonComingToClinic,currency,visitDate));
@@ -53,10 +53,15 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.closeReservation(reservationId));
     }
     @Transactional
-    @PutMapping
-    public ResponseEntity<ReservationDto> changeReservationDate(@RequestParam long reservationId,
-                                                                @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDateTime visitDate)
+    @PatchMapping("/date/{reservationId}")
+    public ResponseEntity<ReservationDto> changeReservationDate(@PathVariable long reservationId,
+                                                                @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate newVisitDate)
             throws ReservationNotFoundException {
-        return ResponseEntity.ok(reservationService.changeReservationDate(reservationId,visitDate));
+        return ResponseEntity.ok(reservationService.changeReservationDate(reservationId,newVisitDate));
+    }
+    @Transactional
+    @PatchMapping("/currency/{reservationId}")
+    public ResponseEntity<ReservationDto> changeCurrency(@PathVariable long reservationId,@RequestParam int newCurrency) throws ReservationNotFoundException {
+        return ResponseEntity.ok(reservationService.changeCurrency(reservationId,newCurrency));
     }
 }
