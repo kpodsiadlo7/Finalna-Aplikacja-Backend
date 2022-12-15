@@ -72,7 +72,7 @@ public class PatientControllerTestSuite {
     @Test
     void shouldGetPatientById() throws Exception {
         // given
-        PatientDto patient = new PatientDto(7,
+        PatientDto patientDto = new PatientDto(7,
                 "imie",
                 "nazwisko",
                 Sex.MALE,
@@ -81,7 +81,7 @@ public class PatientControllerTestSuite {
                 new ArrayList<>(),
                 new ArrayList<>(),
                 "Bo nogi mnie bolą");
-        when(patientService.getPatientDtoById(anyLong())).thenReturn(patient);
+        when(patientService.getPatientDtoById(anyLong())).thenReturn(patientDto);
         // when & then
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/patient/7")
