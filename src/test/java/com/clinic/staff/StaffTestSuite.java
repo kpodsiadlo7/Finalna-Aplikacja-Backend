@@ -55,7 +55,6 @@ class StaffTestSuite {
         assertEquals("surname", nurse.getSurname());
         assertEquals(23, secretary.getAge());
         assertEquals(Sex.MALE, surgeon.getSex());
-        assertEquals(4, staffRepository.findAll().size());
 
         //CleanUp
         staffRepository.deleteAll();

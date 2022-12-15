@@ -20,9 +20,9 @@ public class GradeTestSuite {
         gradeRepository.save(grade);
         // when
         int nicknameSize = gradeRepository.findAllByNickname("nickname").size();
-        assertEquals(5,nicknameSize);
+        assertEquals(1,nicknameSize);
 
         //CleanUp
-        gradeRepository.deleteById(grade.getId());
+        gradeRepository.deleteAll();
     }
 }
