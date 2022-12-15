@@ -8,7 +8,8 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class ReservationDto {
+public class
+ReservationDto {
     private long id;
     private long daysToVisit;
     private Currency currencyPayment;

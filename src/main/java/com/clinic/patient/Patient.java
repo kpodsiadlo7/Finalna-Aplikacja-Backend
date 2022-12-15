@@ -5,6 +5,7 @@ import com.clinic.person.Person;
 import com.clinic.person.enums.Sex;
 import com.clinic.person.enums.Vocation;
 import com.clinic.reservation.Reservation;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,14 @@ public class Patient extends Person {
     private String reasonComingToClinic = "";
 
     protected Patient() {
+    }
+
+    public Patient(final String name, final String surname, final Sex sex, final Vocation vocation, final int age, final long id, final String reasonComingToClinic, final List<DiseaseStory> diseaseStory, final List<Reservation> reservations) {
+        super(name, surname, sex, vocation, age);
+        this.id = id;
+        this.reasonComingToClinic = reasonComingToClinic;
+        this.diseaseStory = diseaseStory;
+        this.reservations = reservations;
     }
 
     public Patient(final String name, final String surname, final Sex sex, final int age, final String reasonComingToClinic) {

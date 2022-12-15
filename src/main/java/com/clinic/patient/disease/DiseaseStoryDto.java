@@ -1,6 +1,5 @@
 package com.clinic.patient.disease;
 
-import com.clinic.patient.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
