@@ -54,8 +54,8 @@ public class PatientController {
     }
 
     @Transactional
-    @PutMapping("/rateclinic/{clinicId}/{patientId}")
-    public ResponseEntity<PrivateClinicDto> rateClinic(@RequestBody GradeDto gradeDto, @PathVariable long clinicId, @PathVariable long patientId)
+    @PutMapping("/rateclinic")
+    public ResponseEntity<PrivateClinicDto> rateClinic(@RequestBody GradeDto gradeDto, @RequestParam long clinicId, @RequestParam long patientId)
             throws PrivateClinicNotFoundException, PatientNotFoundException {
         return ResponseEntity.ok(patientService.rateClinic(gradeDto,clinicId,patientId));
     }

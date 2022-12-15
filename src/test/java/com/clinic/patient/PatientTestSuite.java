@@ -1,6 +1,5 @@
 package com.clinic.patient;
 
-import com.clinic.person.Person;
 import com.clinic.person.enums.Sex;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class PatientTest {
+class PatientTestSuite {
 
     @Autowired
     private PatientRepository patientRepository;
@@ -19,11 +18,11 @@ class PatientTest {
     @DisplayName("CreateSeveralPatients")
     void shouldCreatePatients(){
         // given
-        Patient patient1 = new Patient("patient","surname", Sex.MALE,23);
-        Patient patient2 = new Patient("patient2","surname",Sex.FEMALE, 33);
-        Patient patient3 = new Patient("patient3","surname",Sex.MALE,23);
-        Patient patient4 = new Patient("patient4","surname",Sex.FEMALE,33);
-        Patient patient5 = new Patient("patient5","surname",Sex.FEMALE,33);
+        Patient patient1 = new Patient("patient","surname", Sex.MALE,23,"Noga boli");
+        Patient patient2 = new Patient("patient2","surname",Sex.FEMALE, 33,"biodro boli");
+        Patient patient3 = new Patient("patient3","surname",Sex.MALE,23,"piszczel boli");
+        Patient patient4 = new Patient("patient4","surname",Sex.FEMALE,33,"plec boli");
+        Patient patient5 = new Patient("patient5","surname",Sex.FEMALE,33,"kręgosłup boli");
         patientRepository.save(patient1);
         patientRepository.save(patient2);
         patientRepository.save(patient3);

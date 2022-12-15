@@ -42,7 +42,7 @@ public class ReservationController {
     public ResponseEntity<ReservationDto> createNewReservation(@RequestParam long clinicId, @RequestBody PatientDto patientDto,
                                                                @RequestParam int sex, @RequestParam String reasonComingToClinic,
                                                                @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate visitDate,
-                                                               int currency)
+                                                               @RequestParam int currency)
             throws PatientNotFoundException, PrivateClinicNotFoundException {
         return ResponseEntity.ok(reservationService.createNewReservation(clinicId,patientDto,sex,reasonComingToClinic,currency,visitDate));
     }
