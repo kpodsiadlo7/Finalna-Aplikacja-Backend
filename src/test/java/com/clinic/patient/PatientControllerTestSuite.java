@@ -27,7 +27,6 @@ public class PatientControllerTestSuite {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private PatientService patientService;
     @MockBean
