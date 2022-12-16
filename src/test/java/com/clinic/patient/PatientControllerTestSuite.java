@@ -93,7 +93,15 @@ public class PatientControllerTestSuite {
     @Test
     void shouldCreateNewPatient() throws Exception {
         // given
-        PatientDto patientDto = new PatientDto(7,"name","surname",Sex.MALE,Vocation.PATIENT,33,new ArrayList<>(),new ArrayList<>(),"Bo tak");
+        PatientDto patientDto = new PatientDto(7,
+                "name",
+                "surname",
+                Sex.MALE,
+                Vocation.PATIENT,
+                33,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                "Bo tak");
         when(patientService.createNewPatient(patientDto,0,"s")).thenReturn(patientDto);
 
         Gson gson = new Gson();

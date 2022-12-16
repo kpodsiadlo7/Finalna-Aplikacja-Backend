@@ -25,6 +25,6 @@ public class StaffDto {
     private int quantityPatientToHelp;
     private double grade;
     private int patientQuantity;
-    private List<Grade> gradeIdList;
-    private List<Patient> patientIdList;
+    private List<Grade> gradeList;
+    private List<Patient> patientList;
 }
