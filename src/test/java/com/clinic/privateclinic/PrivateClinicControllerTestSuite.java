@@ -1,6 +1,5 @@
 package com.clinic.privateclinic;
 
-import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
