@@ -8,5 +8,6 @@ import java.util.List;
 @Getter
 @Component
 public class NBPCurrencyDto {
+    private String code;
     private List<Rates> rates;
 }

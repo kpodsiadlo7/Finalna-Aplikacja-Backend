@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class RestApiService {
     private static final String WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/";
     private static final String WEATHER_API_KEY = "9d4cb4e467f0f7502f293cb1dd44e862";
-    private static final String NBP_CURRENCY_URL = "http://api.nbp.pl/api/exchangerates/tables/a/";
+    private static final String NBP_CURRENCY_URL = "http://api.nbp.pl/api/exchangerates/rates/a/";
     private final RestTemplate restTemplate;
     public Optional<WeatherMainDto> getCurrentWeather(final String location) {
         URI url = UriComponentsBuilder.fromHttpUrl(WEATHER_BASE_URL +"weather?q="+location+"&appid="+WEATHER_API_KEY+"&units=metric").build().encode().toUri();
@@ -29,9 +29,14 @@ public class RestApiService {
         return Optional.ofNullable(weatherResponse).map(WeatherDto::getMain);
     }
 
-    public List<NBPCurrencyDto> getCurrency() {
-        URI url = UriComponentsBuilder.fromHttpUrl(NBP_CURRENCY_URL+"?format=json").build().toUri();
-        NBPCurrencyDto[] nbpCurrencyResponse = restTemplate.getForObject(url,NBPCurrencyDto[].class);
-        return Optional.ofNullable(nbpCurrencyResponse).map(Arrays::asList).orElse(Collections.emptyList());
+    public Optional<NBPCurrencyDto> getEurCurrency() {
+        URI url = UriComponentsBuilder.fromHttpUrl(NBP_CURRENCY_URL+"eur?format=json").build().toUri();
+        NBPCurrencyDto nbpCurrencyResponse = restTemplate.getForObject(url,NBPCurrencyDto.class);
+        return Optional.ofNullable(nbpCurrencyResponse);
+    }
+    public Optional<NBPCurrencyDto> getUsdCurrency() {
+        URI url = UriComponentsBuilder.fromHttpUrl(NBP_CURRENCY_URL+"usd?format=json").build().toUri();
+        NBPCurrencyDto nbpCurrencyResponse = restTemplate.getForObject(url,NBPCurrencyDto.class);
+        return Optional.ofNullable(nbpCurrencyResponse);
     }
 }

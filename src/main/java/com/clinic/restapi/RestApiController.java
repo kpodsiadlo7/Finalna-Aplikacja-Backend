@@ -26,8 +26,12 @@ public class RestApiController {
         return ResponseEntity.ok(restApiService.getCurrentWeather(location));
     }
 
-    @GetMapping("/nbp")
-    public ResponseEntity<List<NBPCurrencyDto>> getCurrency(){
-        return ResponseEntity.ok(restApiService.getCurrency());
+    @GetMapping("/nbp/eur")
+    public ResponseEntity<Optional<NBPCurrencyDto>> getEurCurrency(){
+        return ResponseEntity.ok(restApiService.getEurCurrency());
+    }
+    @GetMapping("/nbp/usd")
+    public ResponseEntity<Optional<NBPCurrencyDto>> getUsdCurrency(){
+        return ResponseEntity.ok(restApiService.getUsdCurrency());
     }
 }
