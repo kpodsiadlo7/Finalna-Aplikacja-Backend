@@ -84,7 +84,7 @@ public class PatientService {
         if (!patientRepository.existsById(patientId))
             throw new PatientNotFoundException();
         Patient patient = patientRepository.findById(patientId);
-        DiseaseStory diseaseStory = diseaseStoryService.createDiseaseStory(diseaseStoryDto);
+        DiseaseStory diseaseStory = diseaseStoryService.createDiseaseStory(diseaseStoryDto,patientId);
         patient.setDiseasesStory(diseaseStory);
         patientRepository.save(patient);
         return diseaseStoryService.getDiseaseStoryDto(diseaseStory);

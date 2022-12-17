@@ -17,6 +17,7 @@ public class DiseaseStory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private long patientId;
     private String description;
     private LocalDateTime date;
 
