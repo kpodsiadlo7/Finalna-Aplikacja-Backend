@@ -14,8 +14,9 @@ public class DiseaseStoryService {
         this.diseaseStoryMapper = diseaseStoryMapper;
         this.diseaseStoryRepository = diseaseStoryRepository;
     }
-    public DiseaseStory createDiseaseStory(final DiseaseStoryDto diseaseStoryDto) {
+    public DiseaseStory createDiseaseStory(final DiseaseStoryDto diseaseStoryDto, final long patientId) {
         DiseaseStory diseaseStory = diseaseStoryMapper.mapToDiseaseStory(diseaseStoryDto);
+        diseaseStory.setPatientId(patientId);
         return diseaseStoryRepository.save(diseaseStory);
     }
 

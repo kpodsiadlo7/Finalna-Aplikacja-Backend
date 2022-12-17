@@ -21,7 +21,9 @@ public class DiseaseStoryMapper {
     public DiseaseStoryDto mapToDiseaseStoryDto(final DiseaseStory diseaseStory){
         return new DiseaseStoryDto(
                 diseaseStory.getId(),
-                diseaseStory.getDescription()
+                diseaseStory.getPatientId(),
+                diseaseStory.getDescription(),
+                diseaseStory.getDate()
         );
     }
     public List<DiseaseStoryDto> mapToDiseaseStoryDtoList(final List<DiseaseStory> diseaseStoryList){
