@@ -1,18 +1,20 @@
 package com.clinic.grade;
 
 import com.sun.istack.NotNull;
+import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Data
 @Table(name = "GRADES")
 public class Grade {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private long patientId;
     private String nickname;
     private String description;
     private double grade;

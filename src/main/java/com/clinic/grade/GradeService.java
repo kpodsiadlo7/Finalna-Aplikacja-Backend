@@ -38,9 +38,12 @@ public class GradeService {
         return gradeMapper.mapToGradeDto(gradeMapper.updateGrade(gradeDto));
     }
 
-    public Grade patientRate(final GradeDto gradeDto) {
+    public Grade patientRate(final GradeDto gradeDto, final String patientName, final long patientId) {
         if (gradeDto.getGrade() > 10 && gradeDto.getGrade() < 1)
             throw new IllegalStateException("Grade 1-10");
-        return gradeRepository.save(gradeMapper.mapToGrade(gradeDto));
+        Grade grade = gradeMapper.mapToGrade(gradeDto);
+        grade.setNickname(patientName);
+        grade.setPatientId(patientId);
+        return gradeRepository.save(grade);
     }
 }

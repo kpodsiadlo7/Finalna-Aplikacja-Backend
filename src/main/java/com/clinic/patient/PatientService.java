@@ -77,7 +77,7 @@ public class PatientService {
         if (!patientRepository.existsById(patientId))
             throw new PatientNotFoundException();
         String patientName = patientRepository.findById(patientId).getName();
-        return privateClinicService.rateClinic(gradeDto,clinicId,patientName);
+        return privateClinicService.rateClinic(gradeDto,clinicId,patientName,patientId);
     }
 
     public DiseaseStoryDto addDescriptionDiseaseToDiseaseStory(final DiseaseStoryDto diseaseStoryDto, long patientId) throws PatientNotFoundException {
