@@ -57,12 +57,11 @@ public class PrivateClinicService {
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinicToUpdateName));
     }
 
-    public PrivateClinicDto rateClinic(final GradeDto gradeDto, long clinicId, String patientName) throws PrivateClinicNotFoundException {
+    public PrivateClinicDto rateClinic(final GradeDto gradeDto, final long clinicId, final String patientName, final long patientId) throws PrivateClinicNotFoundException {
         if (!privateClinicRepository.existsById(clinicId))
             throw new PrivateClinicNotFoundException();
         PrivateClinic privateClinic = privateClinicRepository.findById(clinicId);
-        gradeDto.setNickname(patientName);
-        privateClinic.setGrades(gradeService.patientRate(gradeDto));
+        privateClinic.setGrades(gradeService.patientRate(gradeDto,patientName,patientId));
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
 

@@ -64,6 +64,6 @@ public class PatientController {
     public ResponseEntity<StaffDto> rateStaff(@RequestBody GradeDto gradeDto, @PathVariable long staffId, @PathVariable long patientId) throws PatientNotFoundException, StaffNotFoundException {
         if (!patientService.patientExist(patientId))
             throw new PatientNotFoundException();
-        return ResponseEntity.ok(staffService.rateStaff(gradeDto,staffId,patientService.getPatientById(patientId).getName()));
+        return ResponseEntity.ok(staffService.rateStaff(gradeDto,staffId,patientService.getPatientById(patientId).getName(),patientId));
     }
 }

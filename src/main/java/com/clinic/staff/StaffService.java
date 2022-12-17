@@ -67,12 +67,11 @@ public class StaffService {
         return staffMapper.mapToStaffDto(staffRepository.save(staff));
     }
 
-    public StaffDto rateStaff(final GradeDto gradeDto, final long staffId, String patientName) throws StaffNotFoundException {
+    public StaffDto rateStaff(final GradeDto gradeDto, final long staffId, String patientName, final long patientId) throws StaffNotFoundException {
         if (!staffRepository.existsById(staffId))
             throw new StaffNotFoundException();
         Staff staff = staffRepository.findById(staffId);
-        gradeDto.setNickname(patientName);
-        staff.addGradeAndCalculateAverageGrade(gradeService.patientRate(gradeDto));
+        staff.addGradeAndCalculateAverageGrade(gradeService.patientRate(gradeDto,patientName,patientId));
         return staffMapper.mapToStaffDto(staffRepository.save(staff));
     }
     public List<DiseaseStoryDto> getAllDiseasesStory() {
