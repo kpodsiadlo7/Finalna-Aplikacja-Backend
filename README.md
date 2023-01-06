@@ -1,12 +1,13 @@
 
 
-# BACKEND APPLICATION ROADMAP
+# BACKEND APPLICATION INFORMATION
 
 #### Poniżej znajdują się technologie użyte w aplikacji
 * Spring boot
 * Spring web
 * Spring Data JPA
 * RestAPI
+* Rest template for NBP API and WeatherAPI
 * Hibernate
 * JUnit tests
 * Mockito

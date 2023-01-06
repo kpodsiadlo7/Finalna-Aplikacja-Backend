@@ -4,17 +4,12 @@ import com.clinic.restapi.dto.nbp.NBPCurrencyDto;
 import com.clinic.restapi.dto.weather.WeatherDto;
 import com.clinic.restapi.dto.weather.WeatherMainDto;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.mapping.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
