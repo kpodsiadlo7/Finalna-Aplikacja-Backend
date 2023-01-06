@@ -7,6 +7,7 @@
 * Spring web
 * Spring Data JPA
 * RestAPI
+* Rest template for NBP API and WeatherAPI
 * Hibernate
 * JUnit tests
 * Mockito
