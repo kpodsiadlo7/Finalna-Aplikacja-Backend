@@ -1,6 +1,6 @@
 
 
-# BACKEND APPLICATION ROADMAP
+# BACKEND APPLICATION INFORMATION
 
 #### Poniżej znajdują się technologie użyte w aplikacji
 * Spring boot
