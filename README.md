@@ -26,8 +26,9 @@
 * Datastructures
 
 
-
-Poniżej znajduje się link do frontendu aplikacji. 
+Pełen opis działania aplikacji jest w linku poniżej który jest odnośnikiem
+do frontendu.
 Jest to osobny projekt napisany w oparciu o framework Vaadin, 
 który komunikuje się z backendem za pomocą endpointów.
+####
 https://github.com/kpodsiadlo7/Finalna-Aplikacja-Klinika-Frontend
