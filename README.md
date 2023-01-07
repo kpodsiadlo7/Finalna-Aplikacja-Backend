@@ -1,6 +1,8 @@
 
 
 # BACKEND APPLICATION INFORMATION
+#### Jest to mój pierwszy w pełni samodzielny projekt aplikacji z frontendem.
+
 
 #### Poniżej znajdują się technologie użyte w aplikacji
 * Spring boot
