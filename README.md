@@ -72,6 +72,6 @@
 * Stworzyć ocene
 * Zaktualizować ocene
 ####
-### Frotnend dla aplikacji
+### Frontend dla aplikacji
 Jest to osobny projekt napisany w oparciu o framework Vaadin.
 https://github.com/kpodsiadlo7/Finalna-Aplikacja-Klinika-Frontend
