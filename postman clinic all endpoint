@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nickname\": \"karol\",\r\n    \"description\": \"słabiutko jednak\",\r\n    \"grade\": 1\r\n}",
+							"raw": "{\r\n    \"nickname\": \"karol\",\r\n    \"description\": \"new grade\",\r\n    \"grade\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,7 +97,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"nickname\": \"karol\",\r\n    \"description\": \"elegancko\",\r\n    \"grade\": 5\r\n}",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nickname\": \"karol\",\r\n    \"description\": \"updated grade\",\r\n    \"grade\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -137,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Jan\",\r\n    \"surname\": \"Eloszka\",\r\n    \"age\": 33\r\n}",
+							"raw": "{\r\n    \"name\": \"Jan\",\r\n    \"surname\": \"surname\",\r\n    \"age\": 33\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/patient?sex=1&reasonComingToClinic=nie lubie plackow",
+							"raw": "http://localhost:8080/patient?sex=1&reasonComingToClinic=reason",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -161,7 +161,7 @@
 								},
 								{
 									"key": "reasonComingToClinic",
-									"value": "nie lubie plackow"
+									"value": "reason"
 								}
 							]
 						}
@@ -214,7 +214,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"Nowe imie\",\r\n    \"surname\": \"Eloszka\",\r\n    \"age\": 35\r\n}",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"Nowe imie\",\r\n    \"surname\": \"surname\",\r\n    \"age\": 35\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"Nowe imie\",\r\n    \"surname\": \"Eloszka\",\r\n    \"age\": 35\r\n}",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"Nowe imie\",\r\n    \"surname\": \"surname\",\r\n    \"age\": 35\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -275,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"doktorek na 10\",\r\n    \"grade\": 10\r\n}",
+							"raw": "{\r\n    \"description\": \"rate staff 10\",\r\n    \"grade\": 10\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -306,7 +306,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"teraz juz ocena raz się zapisuje\",\r\n    \"grade\": 5\r\n}",
+							"raw": "{\r\n    \"description\": \"rate clinic 5\",\r\n    \"grade\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -389,7 +389,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clinicName\": \"Klinika masalksa\",\r\n    \"city\": \"Gorzów\",\r\n    \"street\": \"gorzowska\"\r\n}",
+							"raw": "{\r\n    \"clinicName\": \"Private Clinic\",\r\n    \"city\": \"Gorzów\",\r\n    \"street\": \"gorzowska\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -612,7 +612,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"jednak złamana dalej\"\r\n}",
+							"raw": "{\r\n    \"description\": \"new disease story desc\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -775,7 +775,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Jan\",\r\n    \"surname\": \"Eloszka\",\r\n    \"age\": 33\r\n}",
+							"raw": "{\r\n    \"name\": \"Jan\",\r\n    \"surname\": \"surname\",\r\n    \"age\": 33\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -783,7 +783,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/reservation?clinicId=15&sex=1&currency=3&reasonComingToClinic=bo tak&visitDate=2022-12-05",
+							"raw": "http://localhost:8080/reservation?clinicId=15&sex=1&currency=3&reasonComingToClinic=reason&visitDate=2022-12-05",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -807,7 +807,7 @@
 								},
 								{
 									"key": "reasonComingToClinic",
-									"value": "bo tak"
+									"value": "reason"
 								},
 								{
 									"key": "visitDate",
