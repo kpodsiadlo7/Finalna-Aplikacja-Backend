@@ -26,6 +26,8 @@
 * Loops
 * Inheritance
 * Datastructures
+* MySQL
+* H2
 
 
 ###
