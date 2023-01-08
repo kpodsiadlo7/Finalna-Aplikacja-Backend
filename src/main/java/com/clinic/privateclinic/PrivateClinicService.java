@@ -6,6 +6,7 @@ import com.clinic.patient.PatientNotFoundException;
 import com.clinic.patient.PatientRepository;
 import com.clinic.staff.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class PrivateClinicService {
         privateClinic.setGrades(gradeService.patientRate(gradeDto,patientName,patientId));
         return privateClinicMapper.mapToPrivateClinicDto(privateClinicRepository.save(privateClinic));
     }
+
 
     public PrivateClinicDto registerNewPatient(final long clinicId, final long patientId) throws PatientNotFoundException, PrivateClinicNotFoundException {
         if (!privateClinicRepository.existsById(clinicId))
