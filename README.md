@@ -14,7 +14,6 @@
 * JUnit tests
 * Mockito
 * Swagger
-* Gson
 * Lombok
 * Gradle
 * Dependency Injection
