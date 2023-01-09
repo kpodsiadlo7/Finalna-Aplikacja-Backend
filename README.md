@@ -7,6 +7,7 @@
 #### Poniżej znajdują się technologie użyte w aplikacji
 * Spring boot
 * Spring web
+* Spring Data Jpa
 * RestAPI
 * Rest template for NBP API and WeatherAPI
 * Hibernate
