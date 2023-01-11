@@ -1,18 +1,19 @@
 
 
 # BACKEND APPLICATION INFORMATION
+#### Jest to mój w pełni samodzielny projekt aplikacji składającej się z backendu oraz frontendu.
+
 
 #### Poniżej znajdują się technologie użyte w aplikacji
 * Spring boot
 * Spring web
-* Spring Data JPA
+* Spring Data Jpa
 * RestAPI
-* Rest template for NBP API and WeatherAPI
+* Zewnetrzne APIs, NBP API oraz WeatherAPI
 * Hibernate
 * JUnit tests
 * Mockito
 * Swagger
-* Gson
 * Lombok
 * Gradle
 * Dependency Injection
@@ -24,6 +25,8 @@
 * Loops
 * Inheritance
 * Datastructures
+* MySQL
+* H2
 
 
 ###
@@ -71,5 +74,5 @@
 * Zaktualizować ocene
 ####
 ### Frontend dla aplikacji
-Jest to osobny projekt napisany w oparciu o framework Vaadin.
+Frontend jest napisany w osobnym projekcie w oparciu o framework Vaadin.
 https://github.com/kpodsiadlo7/Finalna-Aplikacja-Klinika-Frontend
