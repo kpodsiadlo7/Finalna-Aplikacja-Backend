@@ -46,7 +46,7 @@ class PrivateClinicTestSuite {
         assertEquals(2,privateClinic.getGradesList().size());
 
         // CleanUp
-        //gradeRepository.deleteAll();
+        gradeRepository.deleteAll();
         privateClinicRepository.deleteAll();
     }
 
