@@ -45,10 +45,5 @@ class ReservationTestSuite {
         // then
         assertEquals("Połamana noga",diseaseStoryActual);
         assertFalse(reservation.isAfterVisit());
-
-        //CleanUp
-        diseaseStoryRepository.deleteAll();
-        reservationRepository.deleteAll();
-        patientRepository.deleteAll();
     }
 }
