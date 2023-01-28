@@ -2,6 +2,22 @@
 #### Microservices Application
 ### https://github.com/kpodsiadlo7/Bank-Web-Application
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # BACKEND APPLICATION INFORMATION
 #### Jest to mój w pełni samodzielny projekt aplikacji składającej się z backendu oraz frontendu.
 
